@@ -68,19 +68,19 @@ const Navbar = () => {
               <ProfileIcon />
             </Link>
           )}
-          {isAuth && user.role === 1 ? (
+          {isAuth && user?.role === 1 ? (
             <Link to="/card">
               <div className="hover:cursor-pointer">
                 <ShopIcon />
               </div>
             </Link>
-          ) : isAuth && user.role === 2 ? (
+          ) : isAuth && user?.role === 2 ? (
             <Link to="/commandes">
               <div className="hover:cursor-pointer">
                 <NotificationsIcon />
               </div>
             </Link>
-          ) : isAuth && user.role === 3 ? (
+          ) : isAuth && user?.role === 3 ? (
             <Link to="/admin/notifications">
               <div className="hover:cursor-pointer">
                 <NotificationsIcon />

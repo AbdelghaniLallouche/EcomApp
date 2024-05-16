@@ -48,7 +48,7 @@ const Firstpage = () => {
 
   return (
     <div className="w-calc(100% - 40px) mx-4 my-3">
-      {user.role === 3 && <Link
+      {user?.role === 3 && <Link
         to="/admin/homepics">
         <div className="w-full text-center bg-white shadow-xl rounded-xl text-black pt-1 pb-[6px] my-2">
           Change Pics

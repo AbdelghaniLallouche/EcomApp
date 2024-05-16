@@ -13,7 +13,7 @@ const Popularcat = () => {
     <div className="mx-4 w-calc(100% - 32px)">
       <h1 className="title">Categories Populaires :</h1>
       <div className="grid aa my-2 sm:grid-cols-5 grid-cols-2 smal:grid-cols-3 gap-y-4 justify-between items-center overflow-scroll">
-        {user.role === 3 && (
+        {user?.role === 3 && (
           <div className="flex flex-col items-center gap-2"><Link
             to="/admin/categories"
             className="shadow-lg hover:cursor-pointer flex justify-center items-center bg-white w-24 h-24 md:w-32 md:h-32 rounded-full"
@@ -28,7 +28,7 @@ const Popularcat = () => {
           <div key={index} className="flex flex-col items-center gap-2">
             <Link
               to={
-                user.role === 3
+                user?.role === 3
                   ? `/admin/category/${category.id}`
                   : `/category/${category.id}`
               }

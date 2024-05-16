@@ -46,7 +46,7 @@ const Popuarproducts = () => {
     <div className="mx-5 w-calc(100% - 32px)">
       <h1 className="text-xl font-bold">Produits Populaires :</h1>
       <div className="grid w-full aa my-2 gap-4 md:grid-cols-5 smal:grid-cols-2 sm:grid-cols-3 smal:justify-between justify-center justify-items-center items-center overflow-scroll">
-        {user.role === 3 && (
+        {user?.role === 3 && (
           <Link 
             className="flex w-full h-full pb-2 flex-col hover:cursor-pointer justify-center items-center bg-white shadow-md border-y-[1px] rounded-sm"
             to="/admin/products"
