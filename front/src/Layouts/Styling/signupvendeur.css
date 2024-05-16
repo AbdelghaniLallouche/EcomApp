@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+
+
+*{
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
+
+body{
+  font-family: "Poppins", sans-serif;
+  height: 100vh;
+}
+
+.sign{
+
+  height: 100vh;
+
+  flex-grow: 1;
+
+}
+
+.sign-container{
+  height:80%;
+  width: 60%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+
+
+
+}
+
+.sign-right form{
+  display: flex;
+  flex-direction: column;
+}
+
+
+
+.sign-center{
+  margin: 2px;
+}
+
+
+
+.sign-center h2{
+  font-size: 3.5rem;
+  margin-top: -5px;
+}
+
+.sign-center{
+  text-align: center;
+}
+
+.sign-center p{
+  font-weight: 400;
+  font-size: 2rem;
+  margin-bottom: 40px;
+}
+
+.inppp
+ {
+  width: 100%;
+  padding: 16px;
+  margin-bottom: 16px;
+  border: 0px;
+  border-bottom: 1px solid black;
+  outline: none;
+  box-sizing: border-box;
+}
+
+.pass-input-div{
+  position: relative;
+}
+
+.pass-input-div svg{
+  font-size: 20px;
+  position: absolute;
+  right: 10px;
+  bottom: 35px;
+  cursor: pointer;
+  outline: none;
+}
+
+  
+
+
+.login-center-options{
+  display: flex;
+  justify-content: space-between;
+}
+
+.continue-div{
+  display:flex;
+  align-items: center;
+  column-gap: 5px;
+  margin-top: 15px;
+}
+
+.continue-div label{
+  font-size: 1.3rem;
+  font-weight: 500;
+  cursor: pointer;
+  margin-top: 10px;
+}
+
+
+
+.sign-center-buttons button {
+  width: 50%;
+  padding: 16px;
+  border: none;
+  border-radius: 30px;
+  font-size: 16px;
+  font-weight: 600;
+  cursor: pointer;
+  margin: 16px auto;
+}
+
+.sign-center-buttons button:nth-child(1) {
+  background-color: black;
+  color: white;
+  border: 3px solid black;
+}
+
+.sign-center-buttons button:nth-child(1):hover {
+  color: #333;
+  background-color: rgb(254, 249, 249);
+}
+
+.sign-center-buttons button:nth-child(2) {
+  background-color: #f0f0f0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  column-gap: 10px;
+}
+
+.sign-center-buttons button:nth-child(2):hover {
+  background-color: #c4c4c4;
+}
+
+.sign-bottom-p{
+  text-align: center;
+  font-size: 1.5rem;
+  padding-bottom: 40px;
+  margin-top: 10px;
+}
+
+.sign-bottom-p a{
+  text-decoration: none;
+  font-weight: 600;
+  
+
+}
+
+.sign-bottom-p a:hover{
+  text-decoration: underline;
+}
+
+
+.sign-main {
+    width: 700px; 
+    background-color: #ffffff;
+    border-radius: 10px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+    padding: 40px;
+    margin: auto;
+    margin-top: 100px;
+    height: 900px;
+    position: relative;
+  }
+  
+
+  .signup-buttons {
+    margin-top: 20px;
+  }
+  
+  .signup-buttons button {
+    display: block;
+    width: 80%;
+    padding: 14px;
+    margin: auto;
+    margin-top: 8px;
+    background-color: #000;
+    color: #fff;
+    border: none;
+    border-radius: 30px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  .signup-buttons button:hover {
+    background-color: #333;
+  }
+  
+  .signup-buttons button + button {
+    margin-top: 18px;
+  }
+  
+
+  .signup-buttons div {
+    overflow: hidden;
+    border-radius: 10px;
+  }
+
+  .sign-main .password-container {
+    position: relative;
+  }
+  
+  .toggle-password-icon {
+    cursor: pointer;
+    position: absolute;
+    right: 10px;
+    top: 40%;
+    transform: translateY(-50%);
+    font-size: 16px; 
+  }
+
+  
+
+  
