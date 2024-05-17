@@ -1,18 +1,23 @@
 import { useRef, useState } from "react";
 import { DownArrow } from "../public/Svgs";
+import { addProduct } from "../public/Helpers";
 
 const AddProductSeller = () => {
-  const [name, setName] = useState("");
-  const [price, setPrice] = useState("");
-  const [description, setDescription] = useState("");
-  const [category, setCategory] = useState("");
-  const [gender, setGender] = useState("");
+
+
+
+
+  const [name, setName] = useState();
+  const [price, setPrice] = useState();
+  const [description, setDescription] = useState();
+  const [category, setCategory] = useState();
+  const [gender, setGender] = useState();
   const [taille, setTaille] = useState([]);
   const [showtaille, setShowtaille] = useState(false);
   const [showpointure, setShowpointure] = useState(false);
   const [pointures, setPointures] = useState([]);
-  const [colors, setColors] = useState("");
-  const [promo, setPromo] = useState("");
+  const [colors, setColors] = useState();
+  const [promo, setPromo] = useState("non");
   const [promoprice, setPromoPrice] = useState();
   const [stock, setStock] = useState();
   const [pics, setPics] = useState([null, null, null, null]);
@@ -117,9 +122,10 @@ const AddProductSeller = () => {
                     <label className="labell" htmlFor={t}>
                       <input
                         type="checkbox"
+                        checked={taille?.includes(t)}
                         onChange={(e) => {
-                          if (taille.includes(t)) {
-                            setTaille(taille.filter((taille) => taille !== t));
+                          if (taille?.includes(t)) {
+                            setTaille(taille?.filter((taille) => taille !== t));
                           } else {
                             taille.push(t);
                             setTaille(taille);
@@ -164,6 +170,7 @@ const AddProductSeller = () => {
                     <label className="labell" key={index} htmlFor={`'${p}'`}>
                       <input
                         type="checkbox"
+                        checked={pointures.includes(p)}
                         onChange={(e) => {
                           if (pointures.includes(p)) {
                             setPointures(pointures.filter((t) => t !== p));
@@ -218,7 +225,7 @@ const AddProductSeller = () => {
                   setPromoPrice(e.target.value);
                 }}
                 className="inputt"
-                placeholder="promo prix"
+                placeholder="promo percentage"
               />
             )}
           </div>
@@ -254,9 +261,8 @@ const AddProductSeller = () => {
                 ref={refs[i - 1]}
                 onChange={(e) => {
                   const file = e.target.files[0];
-                  let pic = URL.createObjectURL(file);
                   let temp = pics;
-                  temp[i - 1] = pic;
+                  temp[i - 1] = file;
                   setPics(temp);
                   console.log(pics);
                 }}
@@ -266,6 +272,9 @@ const AddProductSeller = () => {
             </div>
           ))}
           <button
+          onClick={(e) => {
+            addProduct(e,name,description,price,promo === "oui" ? true : false,promoprice,stock,[colors],category === "vetements" ? taille : category === "chaussures" ? pointures : null,category,category === "vetements" || category === "chaussures" ? gender : null,pics)
+          }}
           className="bg-black text-white pt-1 pb-[6px] w-full rounded-xl"
           >ajouter le produit</button>
         </form>

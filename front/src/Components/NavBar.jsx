@@ -25,7 +25,7 @@ const Navbar = () => {
             <Link to={user?.role === 3 ? `/admin` : `/`}>
               <img
                 className="bg-cover object-cover w-12 h-12 md:w-24 md:h-32 rounded-full"
-                src="./src/Pics/logo.png"
+                src="../src/Pics/logo.png"
                 alt=""
               />
             </Link>

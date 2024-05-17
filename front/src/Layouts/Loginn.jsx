@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { baseUrl } from "../public/Svgs";
 
+
 const Login = () => {
   const navigate = useNavigate();
   const handleLogin = async (e) => {
@@ -22,6 +23,7 @@ const Login = () => {
         const token = data.token;
         localStorage.setItem("token", token);
         navigate(data.redirect);
+        window.location.reload();
       }
     } catch (err) {
       alert(err);

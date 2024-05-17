@@ -19,14 +19,6 @@ router.post('/vendeurs', async (req, res) => {
         const vendeurSauvegarde = await nouveauVendeur.save();
 
         if(vendeurSauvegarde){
-            //save the user
-            const nouvelUtilisateur = new Utilisateur({
-                nom: vendeurSauvegarde.nomSociete,
-                email: vendeurSauvegarde.email,
-                role: 'seller',
-                motDePasse: hashedPassword,
-            });
-            await nouvelUtilisateur.save();
             res.status(201).send({user : vendeurSauvegarde , ok : true});
         }else{
             res.status(400).send({ok : false , message : "Erreur lors de l'ajout du vendeur"});
@@ -36,6 +28,20 @@ router.post('/vendeurs', async (req, res) => {
         res.status(400).send({ message: error.message  , ok : false});
     }
 });
+
+
+
+router.get('/getvendeurs', async (req, res) => {
+    try {
+        const vendeurs = await Vendeur.find(
+            { estApprouve: false }
+        );
+        res.status(200).send(vendeurs);
+    } catch (error) {
+        res.status(400).send(error);
+    }
+}
+);
 
 module.exports = router;
 
