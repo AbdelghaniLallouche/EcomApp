@@ -7,7 +7,7 @@ const Product = require("../models/produit");
 // Configure multer storage for handling multiple files
 const storage = multer.diskStorage({
   destination: (req, file, cb) => {
-    cb(null, "uploads/");
+    cb(null, "../front/src/images/");
   },
   filename: (req, file, cb) => {
     cb(
@@ -24,7 +24,7 @@ const upload = multer({ storage: storage });
 router.post("/add", upload.array("images", 4), async (req, res) => {
   try {
     const images = req.files.map((file) => file.filename);
-    console.log(images);
+    console.log(req.body);
     let temp = {
       nom: req.body.nom,
       description: req.body.description,
@@ -39,7 +39,7 @@ router.post("/add", upload.array("images", 4), async (req, res) => {
         req.body.categorie === "vetements"
           ? JSON.parse(req.body.tailles)
           : req.body.categorie === "chaussures"
-          ? JSON.parse(req.body.pointures)
+          ? JSON.parse(req.body.tailles)
           : null,
       categorie: req.body.categorie,
       sousCategorie:
@@ -70,11 +70,11 @@ router.delete("/delete/:id", async (req, res) => {
   try {
     const product = await Product.findByIdAndDelete(req.params.id);
     if (!product) {
-      return res.status(404).send("Produit non trouvé.");
+      return res.status(404).send({message : "Produit non trouvé." , ok : false});
     }
-    res.status(200).send("Produit supprimé avec succès.");
+    res.status(200).send({message : "Produit supprimé avec succès." , ok : true});
   } catch (error) {
-    res.status(500).send(error.message);
+    res.status(500).send({message : error.message , ok : false});
   }
 });
 
@@ -128,24 +128,24 @@ router.put("/promote/:id", async (req, res) => {
 router.get('/userproducts/:user_id' , async (req , res) => {
     const user_id = req.params.user_id;
     try{
-    const products = Product.find({
-      vendeurId : user_id
-    })
-    if(products){
-      res.status(200).send({
-        products : products,
-        ok : true
+      const products = await Product.find({
+        vendeurId : user_id
       })
-    }else{
-      res.status(400).send({message : "aucune produits !" , ok : false})
+      if(products){
+        res.status(200).send({
+          products : products,
+          ok : true
+        })
+      }else{
+        res.status(400).send({message : "aucune produits !" , ok : false})
+      }
+  
+    }catch(err){
+      res.status(400).send({
+        message : err.message , 
+        ok : false
+      })
     }
-
-  }catch(err){
-    res.status(400).send({
-      message : err.message , 
-      ok : false
-    })
-  }
     
 
 

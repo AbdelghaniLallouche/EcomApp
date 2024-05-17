@@ -3,10 +3,6 @@ import { DownArrow } from "../public/Svgs";
 import { addProduct } from "../public/Helpers";
 
 const AddProductSeller = () => {
-
-
-
-
   const [name, setName] = useState();
   const [price, setPrice] = useState();
   const [description, setDescription] = useState();
@@ -272,11 +268,32 @@ const AddProductSeller = () => {
             </div>
           ))}
           <button
-          onClick={(e) => {
-            addProduct(e,name,description,price,promo === "oui" ? true : false,promoprice,stock,[colors],category === "vetements" ? taille : category === "chaussures" ? pointures : null,category,category === "vetements" || category === "chaussures" ? gender : null,pics)
-          }}
-          className="bg-black text-white pt-1 pb-[6px] w-full rounded-xl"
-          >ajouter le produit</button>
+            onClick={(e) => {
+              addProduct(
+                e,
+                name,
+                description,
+                price,
+                promo,
+                promoprice,
+                stock,
+                [colors],
+                category === "vetements"
+                  ? taille
+                  : category === "chaussures"
+                  ? pointures
+                  : null,
+                category,
+                category === "vetements" || category === "chaussures"
+                  ? gender
+                  : null,
+                pics
+              );
+            }}
+            className="bg-black text-white pt-1 pb-[6px] w-full rounded-xl"
+          >
+            ajouter le produit
+          </button>
         </form>
       </div>
     </div>

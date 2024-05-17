@@ -100,7 +100,7 @@ export const addProduct = async (
     formData.append("nom", nom);
     formData.append("description", description);
     formData.append("prix", prix);
-    formData.append("promo", promo === "oui" ? true : false);
+    formData.append("promo", promo);
     formData.append("prixPromo", prixPromo);
     formData.append("stock", stock);
     formData.append("quantiteRestante", stock);
@@ -111,7 +111,7 @@ export const addProduct = async (
       categorie === "vetements"
         ? JSON.stringify(tailles)
         : categorie === "chaussures"
-        ? JSON.stringify(pointures)
+        ? JSON.stringify(tailles)
         : null
     );
     formData.append("categorie", categorie);
@@ -159,7 +159,7 @@ export const updateProduct = async (
   e.preventDefault();
   try {
     const res = await fetch(`${baseUrl}/produits/update/${id}`, {
-      method: "PATCH",
+      method: "PUT",
       headers: {
         "Content-Type": "application/json",
       },
@@ -177,14 +177,29 @@ export const updateProduct = async (
       alert(data.message);
     } else {
       alert(data.message);
-      setProducts(...products , data.product)
+      // update products
+      const newProducts = products.map((product) => {
+        if (product._id === id) {
+          return {
+            ...product,
+            nom,
+            prix,
+            promo,
+            prixPromo: promoperc,
+            tailles: tailles,
+            couleurs: colors,
+          };
+        }
+        return product;
+      });
+      setProducts(newProducts);
     }
   } catch (err) {
     alert(err.message);
   }
 };
 
-export const deleteProduct = async (e, id,setProducts,products) => {
+export const deleteProduct = async (e, id, setProducts, products) => {
   e.preventDefault();
   try {
     const res = await fetch(`${baseUrl}/produits/delete/${id}`, {
@@ -197,31 +212,30 @@ export const deleteProduct = async (e, id,setProducts,products) => {
     if (!data.ok) {
       alert(data.message);
     } else {
+      const newProducts = products.filter((product) => product._id !== id);
+      setProducts(newProducts);
       alert(data.message);
-      setProducts(products.filter((p,i)=> p._id !== id))
     }
   } catch (err) {
     alert(err.message);
   }
 };
 
-
-
-export const getSellerProducts = async (id,setProducts) =>{
-  try{
-    const res = await fetch(`${baseUrl}/produits/userproducts/${id}` , {
-      method : 'GET',
-      headers : {
+export const getSellerProducts = async (id, setProducts) => {
+  try {
+    const res = await fetch(`${baseUrl}/produits/userproducts/${id}`, {
+      method: "GET",
+      headers: {
         "Content-Type": "application/json",
-      }
-    })
-    const data = await res.json()
-    if(!data.ok){
-      alert(data.message)
-    }else{
-      setProducts(data.products)
+      },
+    });
+    const data = await res.json();
+    if (!data.ok) {
+      alert(data.message);
+    } else {
+      setProducts(data.products);
     }
-  }catch(err){
-    alert(err.message)
+  } catch (err) {
+    alert(err.message);
   }
-}
+};

@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
 import ReactStars from "react-stars";
 import { Link } from "react-router-dom";
-import { ShopIcon, ModifyIcon, CloseIcon } from "../public/Svgs";
-import { deleteProduct, getSellerProducts, updateProduct } from "../public/Helpers";
+import { ShopIcon, ModifyIcon, CloseIcon, DownArrow } from "../public/Svgs";
+import { User, deleteProduct, getSellerProducts, updateProduct } from "../public/Helpers";
 
 const Gestion = () => {
   const [model, setModel] = useState(false);
@@ -14,10 +14,11 @@ const Gestion = () => {
   const [categorie, setCategorie] = useState();
   const [promoperc, setPromoperc] = useState();
   const [products, setProducts] = useState();
+  const [showpointure, setShowpointure] = useState(false);
 
   useEffect( () => {
-    getSellerProducts(setProducts)
-},[products])
+    getSellerProducts(User.id,setProducts)
+},[])
 
   return (
     <div className="mx-4">
@@ -37,7 +38,7 @@ const Gestion = () => {
           <div>
             <div
               key={index}
-              className="flex relative w-full pb-2 flex-col bg-white shadow-md border-y-[1px] rounded-sm gap-2"
+              className="flex relative w-full pb-2 flex-col h-full bg-white shadow-md border-y-[1px] rounded-sm gap-2"
             >
               <div className="flex w-full gap-2 absolute top-0 py-1 pr-1 justify-end items-center">
                 <button
@@ -56,6 +57,7 @@ const Gestion = () => {
                     setTailles(product.tailles);
                     setColors(product.couleurs);
                     setName(product.nom);
+                    setCategorie(product.categorie);
                     setPrice(product.prix);
                     setId(product._id);
                   }}
@@ -65,12 +67,21 @@ const Gestion = () => {
               </div>
               <img
                 className="bg-cover w-full h-40 rounded-sm"
-                src={product.pic}
+                src={`../src/images/${product.images[0]}`}
                 alt=""
               />
               <div className="flex flex-row mx-1 justify-between items-center">
-                <h1 className="text-base">{product.name}</h1>
-                <h1 className="title">{product.price} DA</h1>
+                <h1 className="text-base">{product.nom}</h1>
+                <div className="flex flex-col gap-2 justify-center items-center">
+                {product.promo ? <h1 className="title">
+                  {parseInt(product.prix -
+                           (product.prixPromo * product.prix) /
+                             (100 - product.prixPromo)
+                       )} DA`
+                      <span className="text-red-600 line-through text-sm block text-end">{`${parseInt(
+                       product.prix)} DA`}</span>
+                    </h1> : <h1 className="title">{product.prix} DA</h1>}
+                </div>
               </div>
 
               <div className="flex flex-row mx-1 justify-between items-center">
@@ -79,7 +90,7 @@ const Gestion = () => {
                   size={20}
                   color2={"#ffd700"}
                   edit={false}
-                  value={product.rating}
+                  value={2}
                 />
                 <ShopIcon />
               </div>
@@ -128,27 +139,38 @@ const Gestion = () => {
               className="inputt"
             />
 
-            {(categorie === "vetements" || categorie === "chaussures") && (
-              <div className="m-1 shadow-lg bg-white">
-                {tailles.map((p, index) => (
-                  <label className="labell" key={index} htmlFor={`'${p}'`}>
-                    <input
-                      type="checkbox"
-                      checked={tailles.includes(p)}
-                      onChange={(e) => {
-                        if (tailles.includes(p)) {
-                          setTailles(tailles.filter((t) => t !== p));
-                        } else {
-                          tailles.push(p);
-                          setTailles(tailles);
-                        }
-                      }}
-                    />
-                    <h1 className="title">{p}</h1>
-                  </label>
-                ))}
-              </div>
-            )}
+              {(categorie === "vetements" || categorie === "chaussures") && <div
+                onClick={(e) => {
+                  setShowpointure(!showpointure);
+                }}
+                className="flex hover:cursor-pointer inputt mt-2 items-center justify-between"
+              >
+                <h1>Pointures</h1>
+                <DownArrow />
+              </div>}
+              {(showpointure && (categorie === "vetements" || categorie === "chaussures") ) && (
+                <div className="m-1 shadow-lg w-full h-30 overflow-y-scroll bg-white">
+                  {[36, 37, 38, 39, 40, 41, 42, 43, 44].map((p, index) => (
+                    <label className="labell" key={index} htmlFor={`'${p}'`}>
+                      <input
+                        type="checkbox"
+                        id={`${p}`}
+                        checked={tailles.includes(p)}
+                        onChange={(e) => {
+                          if (tailles.includes(p)) {
+                            setTailles(tailles.filter((t) => t !== p));
+                          } else {
+                            tailles.push(p);
+                            setTailles(tailles);
+                          }
+                        }}
+                      />
+                      <h1 className="title">{p}</h1>
+                    </label>
+                  ))}
+                </div>
+              )}
+          
 
             <div className="flex w-full justify-center items-center gap-2 mt-1">
               <button
@@ -162,7 +184,7 @@ const Gestion = () => {
                       name,
                       price,
                       promoperc === null || promoperc === "" ? false : true,
-                      promoperc,
+                      promoperc === null ? null : promoperc === "" ? null : promoperc,
                       colors,
                       tailles,
                       setProducts,
